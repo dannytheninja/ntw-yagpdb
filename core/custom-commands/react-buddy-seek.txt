@@ -1,0 +1,10 @@
+{{/*
+Reaction
+*/}}
+
+{{if and (eq $.Reaction.Emoji.Name "👬") (eq $.ReactionMessage.Author.ID 204255221017214977)}}
+  {{giveRoleName $.Reaction.UserID "Buddy Seeker"}}
+  {{sendMessage nil "Cool! You've been given the **Buddy Seeker** role. Next, please write an intro and say how old you are and list a few interests (besides the normal TBDL stuff). We'll use this information to match you with a Buddy!"}}
+  {{sendMessage 802003205931794442 (joinStr "" $.User.Mention ": Welcome to **NUK The World**! In this channel you'll be paired up with a " (mentionRoleName "Buddy") ". We'll match you with someone who will be your first friend here based on what you write in your Introduction. Every Buddy has had their age verified and has shown that they love to make friends, so you don't need to worry!")}}
+{{end}}
+

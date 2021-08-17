@@ -1,0 +1,113 @@
+{{/*
+Command: ntw
+*/}}
+
+{{$args := parseArgs 2 "Syntax is <hug, pat, boop, bap or bonk> <mention>"
+	(carg "string" "either hug, pat, boop, bap or bonk")
+    	(carg "user" "mention someone")}}
+ 
+{{/* --------------------- TEXT DEFINING --------------------- */}}
+
+{{/* --------- BONK TEXTS --------- */}}
+{{$bonkText1 := (joinStr "" .User.Mention " just **bonked** " ($args.Get 1).Mention)}}
+{{$bonkText2 := (joinStr "" ($args.Get 1).Mention " got **bonked** by " .User.Mention)}}
+{{$bonkText3 := (joinStr ""  "It started raining bonks above " ($args.Get 1).Mention "! \n" .User.Mention " has most likely used /toggledownfall")}}
+{{$bonkText4 := (joinStr "" ($args.Get 1).Mention " saw something coming and used an <:unoreverse:582243312669425665> card on you!\n**bonk** " .User.Mention " got bonked instead!")}}
+
+{{/* --------- BAP TEXTS  --------- */}}
+
+{{$bapText1 := (joinStr "" .User.Mention " *baps* " ($args.Get 1).Mention)}}
+{{$bapText2 := (joinStr "" .User.Mention " has just bapped " ($args.Get 1).Mention "'s nose")}}
+{{$bapText3 := (joinStr "" .User.Mention " <:bap:607691936341557268> *bapped* " ($args.Get 1).Mention)}}
+{{$bapText4 := (joinStr "" "<:bap:607691936341557268> → " ($args.Get 1).Mention)}}
+{{$bapText5 := (joinStr "" "*ehehehe* You've been **bapped** " ($args.Get 1).Mention "!")}}
+{{$bapText6 := (joinStr "" .User.Mention " slipped on a :banana: while trying to bap " ($args.Get 1).Mention " and accidentally bapped themselves instead!")}}
+
+{{/*  --------------------- BOOP TEXTS  --------------------- */}}
+{{$boopText1 := (joinStr "" .User.Mention " boops " ($args.Get 1).Mention )}}
+{{$boopText2 := (joinStr "" .User.Mention " gives a massive **boop** to " ($args.Get 1).Mention )}}
+
+{{/*   --------------------- PAT  TEXTS--------------------- */}}
+{{$patText1 := (joinStr "" .User.Mention " gives a big *pat pat* to " ($args.Get 1).Mention)}}
+{{$patText2 := (joinStr "" .User.Mention " *pats* " ($args.Get 1).Mention)}}
+{{$patText3 := (joinStr "" ($args.Get 1).Mention " got some *pats* from " .User.Mention)}}
+
+{{/*  --------------------- HUG TEXTS--------------------- */}}
+{{$hugText1 := (joinStr "" .User.Mention " <:hugs:603051087691251712> *hugs* " ($args.Get 1).Mention)}}
+{{$hugText2 := (joinStr "" .User.Mention " <:hugs:603051087691251712> wants to give you a hug " ($args.Get 1).Mention)}}
+{{$hugText3 := (joinStr "" ($args.Get 1).Mention " got a <:hugs:603051087691251712> from " .User.Mention)}}
+
+{{/* SLAP */}}
+{{$slapText := (joinStr "" "*" .User.Mention " slaps " ($args.Get 1).Mention " around a bit with a large trout :fish:*")}}
+
+{{/*  --------------------- ERROR TEXTS --------------------- */}}
+{{$commands := "*-ntw help*\n*-ntw hug <mention>*\n *-ntw pat <mention>*\n *-ntw boop <mention>*\n *-ntw bap <mention>*\n *-ntw bonk <mention>* \n"}}
+{{$help := (joinStr "" "Valid Commands are: \n " $commands)}}
+{{$invalFirstArg := (joinStr "" "Invalid Sub Command, valid Sub Commands are:\n " $commands )}}
+
+{{/* --------------------- START OF MAIN BODY --------------------- */}}
+{{$rng := randInt 100}} 	{{/*  TO CALCULATE CHANCES */}}
+
+{{/* --------- BONK --------- */}}
+{{if eq ($args.Get 0) "bonk" }}															
+		{{if lt $rng 45}}
+			{{sendMessage nil $bonkText1}}
+		{{else if lt $rng 90}}
+			{{sendMessage nil $bonkText2}}
+		{{else  if lt $rng 99}}
+			{{sendMessage nil $bonkText3}}
+		{{else}}
+			{{sendMessage nil $bonkText4}}
+		{{end}}
+ 
+{{/* --------- BAP --------- */}}
+{{ else if eq ($args.Get 0) "bap" }}
+		{{if lt $rng 20}}
+			{{sendMessage nil $bapText1}}
+		{{else if lt $rng 40}}
+			{{sendMessage nil $bapText2}}
+		{{else if lt $rng 60}}
+			{{sendMessage nil $bapText3}}
+		{{else if lt $rng 80}}
+			{{sendMessage nil $bapText4}}
+		{{else  if lt $rng 99}}
+			{{sendMessage nil $bapText5}}
+		{{else}}
+			{{sendMessage nil $bapText6}}
+		{{end}}
+
+{{/* --------- BOOP --------- */}}
+{{else if eq ($args.Get 0) "boop" }}																	 	
+		{{if lt $rng 50}}
+			{{sendMessage nil $boopText1}}
+		{{else}}
+			{{sendMessage nil $boopText2}}
+		{{end}}
+
+ {{/* --------- PAT --------- */}}
+{{else if eq ($args.Get 0) "pat" }}																	 	
+		{{if lt $rng 10}}
+			{{sendMessage nil $patText1}}
+		{{else if lt $rng 35}}
+			{{sendMessage nil $patText2}}
+		{{else}}
+			{{sendMessage nil $patText3}}
+		{{end}}
+
+{{/* --------- HUG --------- */}}
+{{else if eq ($args.Get 0) "hug" }}
+		{{if lt $rng 10}}
+			{{sendMessage nil $hugText1}}
+		{{else if lt $rng 35}}
+			{{sendMessage nil $hugText2}}
+		{{else}}
+			{{sendMessage nil $hugText3}}
+		{{end}}
+{{else if eq ($args.Get 0) "slap" }}
+                {{sendMessage nil $slapText}}
+{{else if eq ($args.Get 0) "help" }}
+	{{sendMessage nil $help}}
+{{else}}
+	{{sendMessage nil $invalFirstArg}}
+{{end}}
+

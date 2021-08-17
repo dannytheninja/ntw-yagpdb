@@ -1,0 +1,11 @@
+{{/*
+Regex: ^(-role )?teen$
+*/}}
+
+{{giveRoleName $.User.ID "Teen"}}
+{{$msgid := sendMessageRetID nil "Thanks! Now please write an introduction. You can say whatever you want about yourself, or use the template in the pinned messages if you don't know what to write. Afterwards a mod will manually review and accept your membership."}}
+
+{{/*
+\n\nIs this all a bit new to you? **NUK The World** has a Buddy system to help you make a friend. Click or tap the 👬 to learn more!"}}
+{{addMessageReactions nil $msgid "👬"}}
+*/}}

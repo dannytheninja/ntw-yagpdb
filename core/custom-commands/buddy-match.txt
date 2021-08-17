@@ -1,0 +1,13 @@
+{{/*
+StartsWith: -match
+Channel: #buddy-seeking
+*/}}
+
+{{$args := parseArgs 1 "Usage: `-match @mention`"
+  (carg "user" "User to match with")}}
+{{if $args.Get 0}}
+  {{$user := $args.Get 0}}
+  {{sendMessage 726762830367293481 (joinStr "" $.User.Mention " matched as buddy of " $user.Mention ".")}}
+  {{$.User.Mention}}: Thanks! Recorded that you are matched with {{$user.Mention}}.
+{{end}}
+

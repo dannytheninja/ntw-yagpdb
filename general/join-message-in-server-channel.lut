@@ -1,0 +1,66 @@
+{{/* Channel: #introductions */}}
+
+{{sleep 1}}
+{{$new := false}}
+{{$roles := (getMember .User).Roles}}
+{{range $role := $roles}}
+	{{if eq $role 620832152967315466}}
+		{{$new = true}}
+	{{end}}
+{{end}}
+
+{{/* ALL VAIRABLES UNTIL THE NEXT ALL CAPS COMMENT DEFINE THE TEXT FOR NEW USER EMBED */}}
+
+{{$newUserTitle := (joinStr "" "Welcome to NUK The World " .User.Username "!")}} 
+{{/* newUserTitle Variable contains the text to be displayed in the Title of the new users embed (This cannot contain a mention) */}}
+
+{{$newUserDescription := joinStr 
+"" "Hello " .User.Mention ", and welcome to NUK The World! \n Before participating here, please read <#453204467970736138>\n \n Before being allowed to participate, you must identify yourself as either a teen (-17) or Adult (18+) and then create an introduction!\n \n *The Adult & Teen role has no bearing on what channels can or cannot be seen and must be accurate to your physical age*"}}
+
+{{$TeenField := "If you are under 17, please type \n`teen` \n  to receive the teen role"}} 
+{{$AdultField:= "If you are 18 or over, please type \n `adult` \n  to receive the adult role"}}
+
+{{$RoleField:= "To see all the available roles this server has, go to <#602914018923118598> \n If you see one you like, just click the corresponding emote to be given the role. \n *To remove yourself from one of these roles, just click the emote again*"}}
+
+{{/* ALL VAIRABLES UP UNTIL serverIcon DEFINE TEXT FOR RETURNING USER EMBED*/}}
+
+{{$returningUserTitle := (joinStr "" "Welcome back to NUK The World, " .User.Username "!")}}
+
+{{$returningUserDescription := joinStr 
+"" "Welcome back " .User.Mention " - we've missed you!"}}
+
+{{$serverIcon := joinStr "" "https://cdn.discordapp.com/icons/" (toString .Guild.ID) "/" .Guild.Icon ".gif"}}
+{{/*The ServerIcon Variable is used to determine the URL of the current server icon, 𝘴𝘩𝘰𝘶𝘭𝘥 be dynamic so doesn't matter if we change icon*/}}
+
+{{$colours:= cslice  65535 255 9055202 14423100 16744272 5597999 4734347 16716947 2003199 2263842 11403055 8900346 16752762 16758465}}
+{{/* Colours Variable is a "Slice" (ArrayList Basically) that contains the colours that the side of the embed can be, these colours need to be in decimal format*/}}
+
+
+
+{{$newUserEmbed := cembed
+	"title" $newUserTitle
+	"description" $newUserDescription
+	"color" (index $colours (randInt 0 (len $colours)))
+
+	"fields" (cslice
+		(sdict "name"  "Teen Role" "value" $TeenField "inline" true)
+		(sdict "name" "Adult Role" "value" $AdultField "inline" true) 
+		(sdict "name" "Roles" "value" $RoleField) )
+
+	"thumbnail" (sdict "url" $serverIcon)
+}}
+
+{{$returningUserEmbed :=cembed
+	"title" $returningUserTitle
+	"description" $returningUserDescription
+	"color" (index $colours (randInt 0 (len $colours)))
+	"thumbnail" (sdict "url" $serverIcon)
+}}
+
+
+{{if eq $new true}}
+	{{sendMessage nil $returningUserEmbed}}
+{{else}}
+	{{ sendMessage nil $newUserEmbed }}
+{{end}}
+

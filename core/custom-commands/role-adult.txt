@@ -1,0 +1,7 @@
+{{/*
+Regex: ^(-role )?adult$
+*/}}
+
+{{giveRoleName $.User.ID "Adult"}}
+{{$msgid := sendMessageRetID nil "Thanks! Just a heads up: **NUK The World is primarily a server for teens.** Adults are allowed here but with the expectation that you will respect the space and act as a positive influence. Please use an 18+ space for your own ABDL community. For more information, please see https://nukthe.world/page/roe\n\nNext, please write an introduction - either free-form or using the template in the pinned messages if you don't know what to write. Afterwards a mod will manually review and accept your membership."}}
+

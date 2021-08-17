@@ -1,0 +1,11 @@
+{{/*
+StartsWith: -accept
+*/}}
+
+{{$args := parseArgs 1 "Usage: `-accept @mention`"
+  (carg "user" "User to grant membership to")}}
+{{if $args.Get 0}}
+  {{$user := $args.Get 0}}
+  {{giveRoleName $user.ID "Member"}}
+  Welcome to NUK The World, <@{{$user.ID}}>! Head over to <#753292418853503086> to participate in the rest of the server!
+{{end}}
